@@ -1,0 +1,95 @@
+<html>
+<head>
+<title>Social Media Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button id="login-btn">Login/Connect Accounts</button>
+
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Connect Social Media Accounts</h2>
+        <p>This is where you would integrate with oauth or other login methods.</p>
+       <div class="social-btns">
+        <button onclick="window.open('https://www.facebook.com')" class="social-btn facebook">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" alt="facebook"> Connect facebook
+</button>
+
+    <button onclick="window.open('https://x.com/?lang=en')" class="twitter"> Connect Twitter
+    </button>
+
+
+        <button onclick="window.open('https://www.instagram.com/accounts/login/?hl=en', '_blank')" class="social-btn instagram">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram"> Connect Instagram
+</button>
+	 
+        </button>
+	 <button onclick="closeModal()">Close</button> </div>
+
+    </div>
+
+ 
+
+<script>
+const container = document.getElementById('container');
+const loginModal = document.getElementById('login-modal');
+const loginBtn = document.getElementById('login-btn');
+const closeBtn = document.getElementsByClassName("close")[0];
+
+loginBtn.onclick = function() {
+    loginModal.style.display = "block";
+}
+
+closeBtn.onclick = function() {
+    loginModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == loginModal) {
+        loginModal.style.display = "none";
+    }
+}
+
+function closeModal(){
+    loginModal.style.display = "none";
+}
+
+function connectAccount(platform) {
+ if (platform === 'instagram') {
+                // Redirect to Instagram login page
+                window.location.href = "https://www.instagram.com/accounts/login/?hl=en";
+            } else {
+                alert("Connecting to " + platform + "... (Implementation would go here)");
+                // In a real application, you'd use OAuth or API calls here.
+                // After successful connection:
+                createFeed(platform);
+                closeModal();
+            }
+        }
+
+function createFeed(platform) {
+    const feed = document.createElement('div');
+    feed.className = 'feed';
+    feed.innerHTML = `<h2>${platform}</h2>`; // Basic title
+
+    // Example dummy data (replace with API calls)
+    const dummyPosts = [
+        { text: `This is a test post from ${platform}!` },
+        { text: "Another great update!" },
+        { text: "Check out this link: example.com" }
+    ];
+
+    dummyPosts.forEach(post => {
+        const postDiv = document.createElement('div');
+        postDiv.className = 'post';
+        postDiv.textContent = post.text;
+        feed.appendChild(postDiv);
+    });
+
+    container.appendChild(feed);
+}	
+</script>
+</body>
+</html>
